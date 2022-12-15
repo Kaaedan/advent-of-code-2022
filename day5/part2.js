@@ -4,7 +4,6 @@ let [crates, actions] = fs.readFileSync('./input.txt', 'utf8').split(/\n\n/)
 
 crates = crates.split(/\n/).reverse()
 let cratesAsArray = {}
-let previousIndex = 0
 
 for (let index = 1; index < crates.length; index++) {
   const indexAsArray = crates[index].split('')
@@ -14,7 +13,6 @@ for (let index = 1; index < crates.length; index++) {
       if (!cratesAsArray[indexToPush])cratesAsArray[indexToPush] = []
      cratesAsArray[indexToPush].push(indexAsArray[subIndex])
     }
-    previousIndex = subIndex
   }
 }
 
@@ -25,10 +23,8 @@ actions.split(/\n/).forEach(action => {
     cratesAsArray[from].splice(cratesAsArray[from].length-quantity, quantity)
 });
 
-console.log(Object.keys(cratesAsArray).length)
 
 const answer = Object.values(cratesAsArray).reduce((acc, array) => {
-  console.log(array.length)
   if (!array.length) return acc
   acc += array.pop()
   return acc
